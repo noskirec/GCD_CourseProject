@@ -36,7 +36,7 @@ As with `merge_data`, this function takes as an argument a file folder containin
  
 ### Transformations:
 
- - perform a colnames() on the giant data set to have the 3 new columns and the column headers for subject, activity, and activity id
+ -  Use `colnames()` to set the column headers for Subject, Activity, ActivityID, and the associated features
  - `mean_col` are the indices of columns that contain "mean()".
  - `std_col` are the indices of columns that contain "std(). 
  - `meanstd_col` is the vector containing the `mean_col` and `std_col` indices, and sorted.
