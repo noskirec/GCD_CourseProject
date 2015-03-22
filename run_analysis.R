@@ -82,5 +82,34 @@ extract_meanstd <- function(dataset, fileFolder) {
 }
 
 
+###############################################################################
+# 4. Appropriately labels the data set with descriptive variable names.       #
+# 5. From the data set in step 4, creates a second, independent tidy data set #
+#    with the average of each variable for each activity and each subject.    #
+###############################################################################
+
+
+tidify_data <- function(data_set, path_to_tidyset_file) {
+  require(reshape2)
+  # Melt the data
+  melt_data <- melt(data_set, id=c("Subject","ActivityID","Activity"))
+  
+  # Cast the data back into a tidy format
+  tidy_data <- dcast(melt_data, formula = Subject + ActivityID + Activity ~ variable, mean)
+  
+  # Format/clean the column names further
+  col_names_vector <- colnames(tidy_data)
+  col_names_vector <- gsub("-mean()","Mean",col_names_vector,fixed=TRUE)
+  col_names_vector <- gsub("-std()","Std",col_names_vector,fixed=TRUE)
+  col_names_vector <- gsub("BodyBody","Body",col_names_vector,fixed=TRUE)
+  
+  # Add column names back to tidy_data
+  colnames(tidy_data) <- col_names_vector
+  
+  # Write tidy data back to .txt file
+  write.table(tidy_data, file=path_to_tidyset_file, sep="\t", row.names=FALSE)
+}
+
 merged_data <- merge_data("UCI HAR Dataset")
 meanstd_dataset <- extract_meanstd(merged_data, "UCI HAR Dataset")
+tidify_data(meanstd_dataset, "./tidy_dataset.txt")
