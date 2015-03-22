@@ -41,3 +41,12 @@ As with `merge_data`, this function takes as an argument a file folder containin
  - `std_col` are the indices of columns that contain "std(). 
  - `meanstd_col` is the vector containing the `mean_col` and `std_col` indices, and sorted.
  - `extracted_data_set` is the final data table containing Suject, Activity, and ActivityID, and all the columns whose indices are contained within the `meanstd_col` vector.
+
+## tidify_data
+
+### Transformations:
+
+ - `melt_data` is the data after performing `melt` on the `data_set` parameter.
+ - `tidy_data` is the data after performing dcast on `melt_data`, providing the mean of the related activities across the different activities and different subjects.
+ - `col_names_vector` is the data vector containing new formatted column headers where we replace mean() with Mean, std() with Std, and BodyBody with Body.
+ - `tidy_data` has its column headers updated with those in `col_names_vector`
