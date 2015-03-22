@@ -25,18 +25,18 @@ The `merge_data` function takes as its argument a file folder/directory where th
 ### Transformations:
 
 - Combining activity labels with the y-labels (`y_train_labels` and `y_test_labels`) so the actual labels for activities will be displayed as WALKING, etc.
-- `test_data` is the merged data table of the raw test data with the subject, activity, activity id, and the other 541 variables
-- `train_data` is the merged data table of the raw training data with the subject, activity, activity id, and the other 541 variables
-- `all_data` is the merged version of `train_data` and `test_data`
+- `test_data` is the merged data table of the raw test data with the subject, activity, activity id, and the other 541 variables.
+- `train_data` is the merged data table of the raw training data with the subject, activity, activity id, and the other 541 variables.
+- `all_data` is the merged version of `train_data` and `test_data`.
 
 
 ## extract_meanstd
 ### Data:
-As with `merge_data`, this function takes as an argument a file folder containing the file necessary to determine the appropriate column names. Within this folder, the file `features.txt` is assigned to the variable `features_data`, containing all the 541 features and their names
+As with `merge_data`, this function takes as an argument a file folder containing the file necessary to determine the appropriate column names. Within this folder, the file `features.txt` is assigned to the variable `features_data`, containing all the 541 features and their names.
  
 ### Transformations:
 
- -  Use `colnames()` to set the column headers for Subject, Activity, ActivityID, and the associated features
+ -  Use `colnames()` to set the column headers for Subject, Activity, ActivityID, and the associated features.
  - `mean_col` are the indices of columns that contain "mean()".
  - `std_col` are the indices of columns that contain "std(). 
  - `meanstd_col` is the vector containing the `mean_col` and `std_col` indices, and sorted.
@@ -49,4 +49,4 @@ As with `merge_data`, this function takes as an argument a file folder containin
  - `melt_data` is the data after performing `melt` on the `data_set` parameter.
  - `tidy_data` is the data after performing dcast on `melt_data`, providing the mean of the related activities across the different activities and different subjects.
  - `col_names_vector` is the data vector containing new formatted column headers where we replace mean() with Mean, std() with Std, and BodyBody with Body.
- - `tidy_data` has its column headers updated with those in `col_names_vector`
+ - `tidy_data` has its column headers updated with those in `col_names_vector`.
