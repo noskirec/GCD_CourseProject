@@ -1,12 +1,15 @@
 # Getting and Cleaning Data Course Project
 
-merged_data <- merge_data("UCI HAR Dataset")
 
+#############################################################################
+# 1. Merges the training and the test sets to create one data set.          #
+# 3. Uses descriptive activity names to name the activities in the data set.#
+# 4. Appropriately labels the data set with descriptive variable names.     #
+#############################################################################
 
-####################################################################
-# 1. Merges the training and the test sets to create one data set. #
-####################################################################
 # Reads in the location of the directory (assuming same path as current file)
+# and grabs all the appropriate data, combining it into one data set with
+# appropriate and descriptive variable names.
 merge_data <- function(fileFolder) {
   # Grabs test and training data
   test_path <- paste("./", fileFolder, "/test/X_test.txt", sep="")
@@ -44,3 +47,40 @@ merge_data <- function(fileFolder) {
   return(all_data)
 }
 
+
+#########################################################################
+# 2. Extracts only the measurements on the mean and standard deviation  #
+#    for each measurement.                                              #
+# 4. Appropriately labels the data set with descriptive variable names. #
+#########################################################################
+
+# For a data set and directory, grabs the appropriate "mean" and "std" columns
+# from a data set. Adds more descriptive variable names for "Subject", "ActivityID",
+# and "Activity".
+extract_meanstd <- function(dataset, fileFolder) {
+  # Grabs feature data from the .txt file
+  feat_path <- paste("./", fileFolder, "/features.txt", sep="")
+  features_data <-read.table(feat_path)
+  
+  # Sets column headers for combined data 
+  # Merges feature data labels with Subject, ActivityID, and Activity
+  colnames(dataset) <- c("Subject", "ActivityID", "Activity", as.vector(features_data[,2]) )
+  
+  # Extract column numbers for columns with "mean()" and for columns with "std()" 
+  mean_col <- grep("mean()", colnames(dataset), fixed = TRUE)
+  std_col <- grep("std()", colnames(dataset), fixed = TRUE)
+  
+  # Create vector of all column numbers with either "mean" or "std"
+  meanstd_col <- c(mean_col, std_col)
+  
+  # Sort the vector to use in subsetting
+  meanstd_col <- sort(meanstd_col)
+  
+  # Extract Subject, ActivityID, Activity, and all mean/std columns
+  extracted_data <- dataset[,c(1,2,3, meanstd_col)]
+  return(extracted_data)
+}
+
+
+merged_data <- merge_data("UCI HAR Dataset")
+meanstd_dataset <- extract_meanstd(merged_data, "UCI HAR Dataset")
