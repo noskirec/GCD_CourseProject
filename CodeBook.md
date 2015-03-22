@@ -22,9 +22,22 @@ The `merge_data` function takes as its argument a file folder/directory where th
 - `train/y_train.txt` is assigned to `y_train`, containing all the possible label data inside the training set.
  
  
-### Transformations inside merge_data
+### Transformations:
 
 - Combining activity labels with the y-labels (`y_train_labels` and `y_test_labels`) so the actual labels for activities will be displayed as WALKING, etc.
 - `test_data` is the merged data table of the raw test data with the subject, activity, activity id, and the other 541 variables
 - `train_data` is the merged data table of the raw training data with the subject, activity, activity id, and the other 541 variables
 - `all_data` is the merged version of `train_data` and `test_data`
+
+
+## extract_meanstd
+### Data:
+As with `merge_data`, this function takes as an argument a file folder containing the file necessary to determine the appropriate column names. Within this folder, the file `features.txt` is assigned to the variable `features_data`, containing all the 541 features and their names
+ 
+### Transformations:
+
+ - perform a colnames() on the giant data set to have the 3 new columns and the column headers for subject, activity, and activity id
+ - `mean_col` are the indices of columns that contain "mean()".
+ - `std_col` are the indices of columns that contain "std(). 
+ - `meanstd_col` is the vector containing the `mean_col` and `std_col` indices, and sorted.
+ - `extracted_data_set` is the final data table containing Suject, Activity, and ActivityID, and all the columns whose indices are contained within the `meanstd_col` vector.
